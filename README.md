@@ -112,6 +112,37 @@ TensorFlow / Keras (Blood analysis model)
 
 child_process.execFile for AI execution
 
+
+
+ 📸 Screenshots
+
+### 🧾 Login 
+![login page](screenshots/login.png)
+
+### 🧾 user
+![user dashboard](screenshots/dashb.png)
+
+### 🧾 About us
+![about](screenshots/about.png)
+
+### 🧾 why-donate 
+![whydonate](screenshots/whydon.png)
+
+### 🧾 donorform 
+![donate](screenshots/donorform.png)
+
+### 🧾 ai result
+![aires](screenshots/aires.png)
+
+### 🧾 contact 
+![cont](screenshots/cont.png)
+
+
+### 🧑‍💼 Admin Dashboard
+![Admin Dashboard](screenshots/admindash.png)
+![bargraph](screenshots/bargraph.png)
+
+
 📂 Project Structure
 bloodbankmanagementsystem/
 │
