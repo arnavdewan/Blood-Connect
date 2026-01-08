@@ -31,13 +31,16 @@ app.use('/api/announcements', announcementRoutes);
 app.use('/api/analyze', analyzeRoutes);
 
 /* MongoDB */
-mongoose.connect('mongodb://127.0.0.1:27017/bloodbank', {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
+
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.log(err));
 
-app.listen(3000, () =>
-  console.log('Server running at http://localhost:3000')
-);
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
