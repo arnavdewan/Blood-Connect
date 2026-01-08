@@ -609,6 +609,7 @@ if (!user || user.role !== "admin") {
 </div>
 
 <script>
+   const API_BASE = "https://blood-connect-backend-4skl.onrender.com";
 // 🌙 FLOATING ANIMATIONS
 function createFloatingElements() {
   const container = document.getElementById('floatingElements');
@@ -671,7 +672,8 @@ function toggleMessages() {
 // ✅ WORKING BLOOD REQUESTS (YOUR ORIGINAL CODE)
 async function loadBloodRequests() {
   try {
-    const res = await fetch("http://localhost:3000/api/requests");
+    const res = await fetch(`${API_BASE}/api/requests`);
+
     const data = await res.json();
     const table = document.getElementById("requestTable");
     table.innerHTML = "";
@@ -717,7 +719,7 @@ async function loadBloodRequests() {
 
 async function loadUsers() {
   try {
-    const res = await fetch("http://localhost:3000/api/users");
+    const res = await fetch(`${API_BASE}/api/users`);
     const data = await res.json();
     const table = document.getElementById("usersTable");
     table.innerHTML = "";
@@ -749,9 +751,9 @@ async function loadUsers() {
 async function deleteUser(id) {
   if (confirm("Delete this user permanently?")) {
     try {
-      await fetch(`http://localhost:3000/api/users/${id}`, { 
-        method: "DELETE" 
-      });
+      await fetch(`${API_BASE}/api/users/${id}`, {
+  method: "DELETE"
+});
       loadUsers(); // Refresh list
     } catch (err) {
       alert('Error deleting user');
@@ -763,7 +765,8 @@ async function deleteUser(id) {
 // ✅ WORKING MESSAGES (YOUR ORIGINAL CODE)
 async function loadMessages() {
   try {
-    const res = await fetch("http://localhost:3000/api/messages");
+    const res = await fetch(`${API_BASE}/api/messages`);
+
     const data = await res.json();
     const table = document.getElementById("messagesTable");
     table.innerHTML = "";
@@ -792,7 +795,8 @@ async function loadMessages() {
 
 async function loadDonors() {
   try {
-    const res = await fetch("http://localhost:3000/api/donors/normal");
+   const res = await fetch(`${API_BASE}/api/donors/normal`);
+
     const donors = await res.json();
 
     const table = document.getElementById("donorTableBody");
@@ -844,11 +848,12 @@ function showDonors() {
 
 // ✅ YOUR ORIGINAL WORKING FUNCTIONS
 async function approveRequest(id) {
-  await fetch(`http://localhost:3000/api/requests/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: "Approved" })
-  });
+await fetch(`${API_BASE}/api/requests/${id}`, {
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ status: "Approved" })
+});
+
   if (document.getElementById('bloodRequestsSection').classList.contains('active')) {
     loadBloodRequests();
   }
@@ -857,11 +862,12 @@ async function approveRequest(id) {
 async function rejectRequest(id) {
   const reason = prompt("Enter rejection reason:");
   if (!reason) return;
-  await fetch(`http://localhost:3000/api/requests/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: "Rejected", rejectionReason: reason })
-  });
+  await fetch(`${API_BASE}/api/requests/${id}`, {
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ status: "Rejected", rejectionReason: reason })
+});
+
   if (document.getElementById('bloodRequestsSection').classList.contains('active')) {
     loadBloodRequests();
   }
@@ -870,11 +876,12 @@ async function rejectRequest(id) {
 async function replyMessage(id) {
   const reply = prompt("Enter reply:");
   if (!reply) return;
-  await fetch(`http://localhost:3000/api/messages/${id}/reply`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ reply })
-  });
+  await fetch(`${API_BASE}/api/messages/${id}/reply`, {
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ reply })
+});
+
   loadMessages();
 }
 
@@ -891,7 +898,8 @@ function showAnnouncements() {
 
 async function loadAnnouncements() {
   try {
-    const res = await fetch("http://localhost:3000/api/announcements");
+   const res = await fetch(`${API_BASE}/api/announcements`);
+
     const data = await res.json();
     const table = document.getElementById("announcementsTable");
     
@@ -930,12 +938,18 @@ async function addAnnouncement() {
   }
 
   try {
-    await fetch("http://localhost:3000/api/announcements", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, message, bloodGroup: bloodGroup || null, date: date || null, priority })
-    });
-    
+    await fetch(`${API_BASE}/api/announcements`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    title,
+    message,
+    bloodGroup: bloodGroup || null,
+    date: date || null,
+    priority
+  })
+});
+
     // Clear form
     document.getElementById("announcementTitle").value = "";
     document.getElementById("announcementMessage").value = "";
@@ -951,9 +965,10 @@ async function addAnnouncement() {
 async function deleteAnnouncement(id) {
   if (confirm("Delete this announcement permanently?")) {
     try {
-      await fetch(`http://localhost:3000/api/announcements/${id}`, { 
-        method: "DELETE" 
-      });
+      await fetch(`${API_BASE}/api/announcements/${id}`, {
+  method: "DELETE"
+});
+
       loadAnnouncements(); // Refresh list
     } catch (err) {
       alert('Error deleting announcement');
@@ -975,7 +990,8 @@ let aiChartInstance = null; // Store chart instance to prevent duplicates
 
 async function loadAIStats() {
     try {
-        const res = await fetch("http://localhost:3000/api/donors/ai-stats");
+       const res = await fetch(`${API_BASE}/api/donors/ai-stats`);
+
         const data = await res.json();
 
         // Update Text
@@ -1015,8 +1031,8 @@ async function loadActivityFeed() {
     try {
         // Fetching multiple sources to create a combined feed
         const [reqRes, msgRes] = await Promise.all([
-            fetch("http://localhost:3000/api/requests"),
-            fetch("http://localhost:3000/api/messages")
+           fetch(`${API_BASE}/api/requests`),
+fetch(`${API_BASE}/api/messages`)
         ]);
 
         const requests = await reqRes.json();

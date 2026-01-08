@@ -549,6 +549,7 @@
   </div>
 
   <script>
+     const BASE_URL = "https://blood-connect-backend-4skl.onrender.com";
     async function login(e) {
       e.preventDefault();
 
@@ -565,7 +566,8 @@
       const password = document.querySelector('input[type="password"]').value;
 
       try {
-        const res = await fetch("http://localhost:3000/api/auth/login", {
+       const res = await fetch(`${BASE_URL}/api/auth/login`, {
+
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password })
@@ -599,7 +601,8 @@
 
     async function loadLoginAnnouncements() {
       try {
-        const res = await fetch("http://localhost:3000/api/announcements");
+        const res = await fetch(`${BASE_URL}/api/announcements`);
+
         const announcements = await res.json();
         
         const list = document.getElementById("loginAnnouncementsList");

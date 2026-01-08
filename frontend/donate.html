@@ -419,6 +419,8 @@
 </div>
 
 <script>
+    const API_BASE = "https://blood-connect-backend-4skl.onrender.com";
+
 document.addEventListener("DOMContentLoaded", () => {
     const imageInput = document.getElementById("bloodImage");
     const submitBtn = document.getElementById("submitBtn");
@@ -457,10 +459,10 @@ imageInput.addEventListener("change", async () => {
     formData.append("blood_group", donorForm.blood_group.value);
 
     try {
-        const res = await fetch("http://localhost:3000/api/donors", {
-            method: "POST",
-            body: formData
-        });
+        const res = await fetch(`${API_BASE}/api/donors`, {
+  method: "POST",
+  body: formData
+});
 
         // ACTUAL RESULT RECEIVED: Clear interval and snap to 100%
         clearInterval(progressInterval);

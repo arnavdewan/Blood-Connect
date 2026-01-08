@@ -363,6 +363,8 @@ button:active{
 </main>
 
 <script>
+  const API_BASE = "https://blood-connect-backend-4skl.onrender.com";
+
 async function submitRequest(e) {
   e.preventDefault();
 
@@ -387,7 +389,8 @@ async function submitRequest(e) {
   };
 
   try {
-    const res = await fetch("http://localhost:3000/api/requests", {
+    const res = await fetch(`${API_BASE}/api/requests`, {
+
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)

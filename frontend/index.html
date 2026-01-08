@@ -526,7 +526,10 @@ async function showMyRequests() {
   content.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--text-dark);">Loading requests...</div>';
 
   try {
-    const res = await fetch(`http://localhost:3000/api/requests/user/${window.user.id}`);
+    const res = await fetch(
+  `https://blood-connect-backend-4skl.onrender.com/api/requests/user/${window.user.id}`
+);
+
     const data = await res.json();
 
     if (data.length === 0) {
@@ -589,7 +592,10 @@ function closeMessages() {
 
 async function loadMyMessages() {
   try {
-    const res = await fetch(`http://localhost:3000/api/messages/user/${window.user.id}`);
+   const res = await fetch(
+  `https://blood-connect-backend-4skl.onrender.com/api/messages/user/${window.user.id}`
+);
+
     const data = await res.json();
     const box = document.getElementById("myMessages");
     
